@@ -1,0 +1,9 @@
+.gride{
+    text-align: center;
+
+}
+
+.node-row{
+    display:flex;
+    justify-content:center;
+}
