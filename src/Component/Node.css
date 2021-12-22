@@ -7,15 +7,19 @@
   }
 
   .node-bomb{
-    /* background-image: url(../img/diamond.svg); */
+    background-image: url(../img/bomb.svg);
+  }
+
+  .node-start{
+    background-image: url(../img/start.svg);
+  }
+
+  .node-target{
+    background-image: url(../img/target.svg);
   }
   
   .node-finish {
     background-color: red;
-  }
-  
-  .node-start {
-    background-color: green;
   }
   
   .node-visited {
