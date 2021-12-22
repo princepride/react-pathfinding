@@ -1,4 +1,4 @@
-import React ,{useState} from 'react';
+import React from 'react';
 import Node from './Node';
 import "./GrideNodes.css";
 import store from '../store';
@@ -6,23 +6,20 @@ import store from '../store';
 
 const GrideNodes = (props) => {
 
-    const[colNum]=useState(60);
-    const[rowNum]=useState(20);
-    const[isMouseDown,setMouseCondition]=useState(false);
-
     const handleMouseDown=(event)=>{
-        setMouseCondition(true);
+        store.dispatch({type:"MOUSE_DOWN"});
         console.log("mouse down");
       }
     
       const handleMouseUp=(event)=>{
-        setMouseCondition(false);
+        store.dispatch({type:"MOUSE_UP"});
         console.log("mouse up");
       }
 
     const createGride=()=>{
         const gride=[];
-        store.dispatch({type:"INITIAL_NODES"});
+        let colNum=store.getState().COLNUM;
+        let rowNum=store.getState().ROWNUM;
         for(let i=0;i<rowNum;i++){
             const row=[];
             for(let j=0;j<colNum;j++){
@@ -39,6 +36,12 @@ const GrideNodes = (props) => {
 
         return gride;
     }
+
+    const initGride=()=>{
+        store.dispatch({type:"INITIAL_NODES"});
+    }
+
+    initGride();
 
     return(
         <div className="gride" onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
