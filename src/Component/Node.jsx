@@ -9,33 +9,39 @@ const Node = (props) => {
         row,
     } = props;
 
-    const isAdjustingStart = false;
-    const isAdjustingTarget = false;
+    // let isAdjustingStart = false;
+    // let isAdjustingTarget = false;
 
     // const [isWall,setWall] = useState(false);
     const isWall = useSelector(state => state.nodes[row*state.COLNUM+col].isWall);
     const isStart = useSelector(state => state.nodes[row*state.COLNUM+col].isStart);
     const isTarget = useSelector(state => state.nodes[row*state.COLNUM+col].isTarget);
-    const startCoordinates = useSelector(state => state.startCoordinates);
-    const targetCoordinates = useSelector(state => state.targetCoordinates);
+    const isAdjustingTarget = useSelector(state => state.isAdjustingTarget);
+    const isAdjustingStart = useSelector(state => state.isAdjustingStart);
+    // const startCoordinates = useSelector(state => state.start);
+    // const targetCoordinates = useSelector(state => state.target);
     let colNum=store.getState().COLNUM;
 
     const handleMouseOver = (event) =>{
-        if(store.getState().isMouseDown===true&&!isAdjustingStart&&!isAdjustingTarget){
-            store.dispatch({type:"SET_WALL",xCoordinates:col,yCoordinates:row});
+        if(store.getState().isMouseDown===true){
+            if(store.getState().isAdjustingStart||store.getState().isAdjustingTarget){console.log("adjusting");}
+            else{
+                store.dispatch({type:"SET_WALL",xCoordinates:col,yCoordinates:row});
+            }
             // setWall(true);
             // console.log(store.getState().nodes[row*colNum+col].isWall);
         }
     }
     const handleMouseDown=(event)=>{
         store.dispatch({type:"MOUSE_DOWN"});
-        if(isStart===true){
-            isAdjustingStart=true;
-            isStart=false;
+        if(isStart){
+            // isAdjustingStart=true;
+            store.dispatch({type:"DELETE_START",xCoordinates:col,yCoordinates:row});
+            console.log("start adjust");
         }
-        else if(isTarget===true){
-            isAdjustingTarget=true;
-            isTarget=false;
+        else if(isTarget){
+            // isAdjustingTarget=true;
+            store.dispatch({type:"DELETE_TARGET",xCoordinates:col,yCoordinates:row});
         }
         else{
             store.dispatch({type:"SET_WALL",xCoordinates:col,yCoordinates:row});
@@ -47,28 +53,27 @@ const Node = (props) => {
         store.dispatch({type:"MOUSE_UP"});
         if(isAdjustingStart){
             store.dispatch({type:"SET_START",xCoordinates:col,yCoordinates:row});
-            isAdjustingStart=false;
+            // isAdjustingStart=false;
+            console.log("start adjust finish");
         }
         else if(isAdjustingTarget){
             store.dispatch({type:"SET_TARGET",xCoordinates:col,yCoordinates:row});
-            isAdjustingTarget=false;
+            // isAdjustingTarget=false;
         }
         console.log("mouse up");
     }
 
     const classType = () => {
         let className = "node";
-
+        if(isWall){
+            className+=" node-wall";
+        }
         if(isStart){
             className+=" node-start";
             return className;
         }
         if(isTarget){
             className+=" node-target";
-            return className;
-        }
-        if(isWall){
-            className+=" node-wall";
             return className;
         }
         return className;

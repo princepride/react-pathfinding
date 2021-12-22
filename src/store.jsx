@@ -1,7 +1,7 @@
 import {createStore} from "redux";
 
-let ROWNUM = 30;
-let COLNUM = 70;
+const ROWNUM = 30;
+const COLNUM = 70;
 let startCoordinates = [Math.floor(COLNUM/4),Math.floor(ROWNUM/2)]
 let targetCoordinates = [Math.floor(COLNUM*3/4),Math.floor(ROWNUM/2)]
 
@@ -13,7 +13,7 @@ class Node{
     constructor(xCoordinates, yCoordinates){
         this.xCoordinates = xCoordinates;
         this.yCoordinates = yCoordinates;
-        console.log(xCoordinates+" "+yCoordinates);
+        // console.log(xCoordinates+" "+yCoordinates);
         if(xCoordinates===startCoordinates[0] && yCoordinates===startCoordinates[1]){
             this.isStart=true;
             // console.log("Start"+xCoordinates+" "+yCoordinates);
@@ -25,20 +25,12 @@ class Node{
     }
 }
 
-// let nodes=[];
-
-// for(let i=0;i<ROWNUM;i++){
-//     for(let j=0;j<COLNUM;j++){
-//         let node = new Node(j,i);
-//         nodes.isWall = false;
-//         nodes.push(node);
-//     }
-// }
-
 const setBombReducer = (state={nodes:[],
     isMouseDown:false,
     ROWNUM:ROWNUM,
     COLNUM:COLNUM,
+    isAdjustingStart:false,
+    isAdjustingTarget:false,
     start:startCoordinates,
     target:targetCoordinates},action) => {
     switch(action.type){
@@ -70,6 +62,8 @@ const setBombReducer = (state={nodes:[],
             let x1=action.xCoordinates;
             let y1=action.yCoordinates;
             state.start=[x1,y1];
+            state.nodes[y1*state.COLNUM+x1].isStart=true;
+            state.isAdjustingStart=false;
             return{
                 ...state,
             }
@@ -77,6 +71,24 @@ const setBombReducer = (state={nodes:[],
             let x2=action.xCoordinates;
             let y2=action.yCoordinates;
             state.target=[x2,y2];
+            state.nodes[y2*state.COLNUM+x2].isTarget=true;
+            state.isAdjustingTarget=false;
+            return{
+                ...state,
+            }
+        case "DEL_START":
+            let x3=action.xCoordinates;
+            let y3=action.yCoordinates;
+            state.nodes[y3*state.COLNUM+x3].isStart=false;
+            state.isAdjustingStart=true;
+            return{
+                ...state,
+            }
+        case "DEL_TARGET":
+            let x4=action.xCoordinates;
+            let y4=action.yCoordinates;
+            state.nodes[y4*state.COLNUM+x4].isTarget=false;
+            state.isAdjustingTarget=true;
             return{
                 ...state,
             }
