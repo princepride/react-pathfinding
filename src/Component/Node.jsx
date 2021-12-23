@@ -14,6 +14,7 @@ const Node = (props) => {
     const isTarget = useSelector(state => state.nodes[row*state.COLNUM+col].isTarget);
     const isAdjusting = useSelector(state => state.isAdjusting);
     const isBomb = useSelector(state => state.nodes[row*state.COLNUM+col].isBomb);
+    const isVisited = useSelector(state => state.nodes[row*state.COLNUM+col].isVisited);
     // const deletedProp = useSelector(state => state.deletedProp);
     let colNum=store.getState().COLNUM;
 
@@ -69,6 +70,9 @@ const Node = (props) => {
         }
         if(isWall){
             className+=" node-wall";
+        }
+        if(isVisited){
+            className+=" node-visited";
         }
         return className;
     }

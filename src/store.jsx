@@ -1,4 +1,5 @@
 import {createStore} from "redux";
+// import dijkstra from "./Algorithm/Dijkstra";
 
 const ROWNUM = 30;
 const COLNUM = 70;
@@ -11,17 +12,102 @@ class Node{
     isStart=false;
     isTarget=false;
     isBomb=false;
+    distance=Infinity;
+    forwardNode=null;
+    isVisited=false;
     constructor(xCoordinates, yCoordinates){
         this.xCoordinates = xCoordinates;
         this.yCoordinates = yCoordinates;
         if(xCoordinates===startCoordinates[0] && yCoordinates===startCoordinates[1]){
             this.isStart=true;
+            this.distance=0;
         }
         if(xCoordinates===targetCoordinates[0] && yCoordinates===targetCoordinates[1]){
             this.isTarget=true;
         }
     }
 }
+
+// const dijkstra = (nodes) => {
+//     console.log(ROWNUM*COLNUM);
+//     const visitedNodeInorder = [];
+//     const visitedNodes= new Array(ROWNUM*COLNUM).fill(false);
+//     const xStart = 0;
+//     const yStart = 0;
+//     for(let i = 0; i < ROWNUM.length;i++){
+//         for(let j=0; j < COLNUM; j++){
+//             if(nodes[i*COLNUM + j].isStart){
+//                 xStart = j;
+//                 yStart = i;
+//             }
+//         }
+//     }
+//     const query = [nodes[yStart*COLNUM + xStart]];
+//     while(query.length > 0){
+//         let tempNodes=query[0];
+//         let tempIndex=0;
+//         for(let i=1; i<query.length; i++){
+//             if(tempNodes.distance<query[i].distance){
+//                 tempNodes=query[i];
+//                 tempIndex=i;
+//             }
+//         }
+//         let node=query.splice(0,tempIndex);
+//         visitedNodeInorder.push(node);
+//         if(node.isTarget){
+//             return visitedNodeInorder;
+//         }
+//         if(node.xCoordinates-1>=0&&node.yCoordinates-1>=0){
+//             let x = node.xCoordinates-1;
+//             let y = node.yCoordinates-1;
+//             if(nodes[y*COLNUM+x].isWall){
+//                 continue;
+//             }
+//             if(!visitedNodes[y*COLNUM+x]){
+//                 visitedNodes[y*COLNUM+x] = true;
+//                 nodes[y*COLNUM+x].forwardNode=node;
+//                 query.push(nodes[y*COLNUM+x]);
+//             }
+//         }
+//         if(node.xCoordinates-1>=0&&node.yCoordinates+1<ROWNUM){
+//             let x=node.xCoordinates-1;
+//             let y=node.yCoordinates+1;
+//             if(nodes[y*COLNUM+x].isWall){
+//                 continue;
+//             }
+//             if(!visitedNodes[y*COLNUM+x]){
+//                 visitedNodes[y*COLNUM+x] = true;
+//                 nodes[y*COLNUM+x].forwardNode=node;
+//                 query.push(nodes[y*COLNUM+x]);
+//             }
+//         }
+//         if(node.xCoordinates+1<COLNUM&&node.yCoordinates+1<ROWNUM){
+//             let x=node.xCoordinates+1;
+//             let y=node.yCoordinates+1;
+//             if(nodes[y*COLNUM+x].isWall){
+//                 continue;
+//             }
+//             if(!visitedNodes[y*COLNUM+x]){
+//                 visitedNodes[y*COLNUM+x] = true;
+//                 nodes[y*COLNUM+x].forwardNode=node;
+//                 query.push(nodes[y*COLNUM+x]);
+//             }
+//         }
+//         if(node.xCoordinates+1<COLNUM&&node.yCoordinates-1>=0){
+//             let x=node.xCoordinates+1;
+//             let y=node.yCoordinates-1;
+//             if(nodes[y*COLNUM+x].isWall){
+//                 continue;
+//             }
+//             if(!visitedNodes[y*COLNUM+x]){
+//                 visitedNodes[y*COLNUM+x] = true;
+//                 nodes[y*COLNUM+x].forwardNode=node;
+//                 query.push(nodes[y*COLNUM+x]);
+//             }
+//         }
+//     }
+//     return visitedNodeInorder;
+// }
 
 const setBombReducer = (state={nodes:[],
     isMouseDown:false,
@@ -47,6 +133,24 @@ const setBombReducer = (state={nodes:[],
             for(let i=0;i<state.ROWNUM;i++){
                 for(let j=0;j<state.COLNUM;j++){
                     state.nodes[i*state.COLNUM+j].isWall=false;
+                }
+            }
+            return {
+                ...state,
+            }
+        case "CLEAR_BOMB":
+            for(let i=0;i<state.ROWNUM;i++){
+                for(let j=0;j<state.COLNUM;j++){
+                    state.nodes[i*state.COLNUM+j].isBomb=false;
+                }
+            }
+            return {
+                ...state,
+            }
+        case "CLEAR_CLEAR_PATH":
+            for(let i=0;i<state.ROWNUM;i++){
+                for(let j=0;j<state.COLNUM;j++){
+                    state.nodes[i*state.COLNUM+j].isVisited=false;
                 }
             }
             return {
@@ -133,6 +237,25 @@ const setBombReducer = (state={nodes:[],
             }
         case "MOUSE_UP":
             state.isMouseDown = false;
+            return {
+                ...state,
+            }
+        // case "ANIMATE_DIJKSTRA":
+        //     const visitedNodes = dijkstra(state.nodes);
+        //     for(let i = 0; i<visitedNodes.length; i++){
+        //         setTimeout(() => {
+        //             const node = visitedNodes[i];
+        //             node.className +='node node-visited';
+        //         },10*i);
+        //     }
+        //     return {
+        //         ...state,
+        //     }
+
+        case "ANIMATE_PATHFINDING":
+            let x8=action.xCoordinates;
+            let y8=action.yCoordinates;
+            state.nodes[y8*state.COLNUM+x8].isVisited=false;
             return {
                 ...state,
             }

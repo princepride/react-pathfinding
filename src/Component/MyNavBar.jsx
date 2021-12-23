@@ -2,6 +2,7 @@ import React from 'react';
 import {Navbar,Container,Nav,NavDropdown} from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 import store from '../store';
+import dijkstra from '../Algorithm/Dijkstra';
 
 const MyNavBar = () => {
 
@@ -19,6 +20,25 @@ const MyNavBar = () => {
         store.dispatch({type:"CLEAR_WALL_WEIGHTS"});
     }
 
+    const handleClearBomb = (event) =>{
+        store.dispatch({type:"CLEAR_BOMB"});
+    }
+
+    const handleClearPath = (event) =>{
+        store.dispatch({type:"CLEAR_CLEAR_PATH"});
+    }
+
+    const handleDijkstra = (event) =>{
+        let visitedNodesIndex = dijkstra();
+        // for(let i = 0; i < visitedNodesIndex.length; i){
+        //     setTimeout(() =>{
+        //         store.dispatch({type:"ANIMATE_PATHFINDING",
+        //         xCoordinates:visitedNodesIndex[i].xCoordinates,
+        //         yCoordinates:visitedNodesIndex[i].yCoordinates});
+        //     })
+        // }
+    }
+
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -28,7 +48,7 @@ const MyNavBar = () => {
                     <Nav className="me-auto">
 
                         <NavDropdown title="Algorithms" id="algorithms-nav-dropdown">
-                            <NavDropdown.Item id="dijkstra" href="#action/1.1">Dijkstra's Algorithm</NavDropdown.Item>
+                            <NavDropdown.Item id="dijkstra" href="#action/1.1" onClick={handleDijkstra}>Dijkstra's Algorithm</NavDropdown.Item>
                             <NavDropdown.Item id="search" href="#action/1.2">A* Search</NavDropdown.Item>
                             <NavDropdown.Item href="#action/1.3">Greedy Best-first Search</NavDropdown.Item>
                             <NavDropdown.Item href="#action/1.4">Swarm Algorithm</NavDropdown.Item>
@@ -49,8 +69,9 @@ const MyNavBar = () => {
                         <Nav.Link id="bomb" href="#add-bomb" onClick={handleBomb}>Add Bomb</Nav.Link>
                         <Nav.Link href="#switch">Visualize!</Nav.Link>
                         <Nav.Link href="#clear-board" onClick={handleClearBoard}>Clear Board</Nav.Link>
-                        <Nav.Link href="#clear-wall-weights"onClick={handleClearWallWeights}>CLear Wall&Weights</Nav.Link>
-                        <Nav.Link href="#clear-path">Clear Path</Nav.Link>
+                        <Nav.Link href="#clear-wall-weights" onClick={handleClearWallWeights}>CLear Wall&Weights</Nav.Link>
+                        <Nav.Link href="#clear-path" onClick={handleClearPath}>Clear Path</Nav.Link>
+                        <Nav.Link href="#clear-bomb" onClick={handleClearBomb}>Clear Bomb</Nav.Link>
                         <NavDropdown title="Speed" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/8.1">Fast</NavDropdown.Item>
                             <NavDropdown.Item href="#action/8.2">Normal</NavDropdown.Item>

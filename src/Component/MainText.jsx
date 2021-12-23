@@ -7,11 +7,13 @@ const MainText = () => {
 
     const createText = () => {
         const text = textNodes.map((text, index) => {
-            return <Text key={index} id={text.id} text={text.text} />
+            return <div className="text">
+                <Text key={index} id={text.id} text={text.text} />
+                </div>
         })
         return text;
     }
-    return (<div className="MainText">
+    return (<div className="main-text">
         <ul>
             {createText()}
         </ul>
