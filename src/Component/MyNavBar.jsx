@@ -5,13 +5,18 @@ import store from '../store';
 
 const MyNavBar = () => {
 
-    const handleAddBomb = (event) => {
-        document.getElementById("bomb").style.display = "block";
+    const handleBomb = (event) => {
+        store.dispatch({type:"INITIAL_BOMB"});
+        console.log("bomb");
+        // document.getElementById("bomb").style.display = "block";
     }
 
     const handleClearBoard = (event) => {
-        console.log("clear board");
-        store.dispatch({type:"INITIAL_NODES"});
+        store.dispatch({type:"INITIAL_BOARD"});
+    }
+
+    const handleClearWallWeights = (event) => {
+        store.dispatch({type:"CLEAR_WALL_WEIGHTS"});
     }
 
     return (
@@ -41,10 +46,10 @@ const MyNavBar = () => {
                             <NavDropdown.Item href="#action/2.5">Basic Weight Maze</NavDropdown.Item>
                             <NavDropdown.Item href="#action/2.6">Simple Stair Pattern</NavDropdown.Item>
                         </NavDropdown>
-                        <Nav.Link id="bomb" href="#add-bomb" onClick={handleAddBomb}>Add Bomb</Nav.Link>
+                        <Nav.Link id="bomb" href="#add-bomb" onClick={handleBomb}>Add Bomb</Nav.Link>
                         <Nav.Link href="#switch">Visualize!</Nav.Link>
                         <Nav.Link href="#clear-board" onClick={handleClearBoard}>Clear Board</Nav.Link>
-                        <Nav.Link href="#clear-wall-weights">CLear Wall&Weights</Nav.Link>
+                        <Nav.Link href="#clear-wall-weights"onClick={handleClearWallWeights}>CLear Wall&Weights</Nav.Link>
                         <Nav.Link href="#clear-path">Clear Path</Nav.Link>
                         <NavDropdown title="Speed" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/8.1">Fast</NavDropdown.Item>

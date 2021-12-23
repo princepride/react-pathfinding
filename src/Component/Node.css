@@ -11,6 +11,7 @@
   }
 
   .node-bomb{
+    background-color: white;
     background-image: url(../img/bomb.svg);
   }
 

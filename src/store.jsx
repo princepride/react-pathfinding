@@ -10,17 +10,15 @@ class Node{
     key = "";
     isStart=false;
     isTarget=false;
+    isBomb=false;
     constructor(xCoordinates, yCoordinates){
         this.xCoordinates = xCoordinates;
         this.yCoordinates = yCoordinates;
-        // console.log(xCoordinates+" "+yCoordinates);
         if(xCoordinates===startCoordinates[0] && yCoordinates===startCoordinates[1]){
             this.isStart=true;
-            // console.log("Start"+xCoordinates+" "+yCoordinates);
         }
         if(xCoordinates===targetCoordinates[0] && yCoordinates===targetCoordinates[1]){
             this.isTarget=true;
-            // console.log("Target"+xCoordinates+" "+yCoordinates);
         }
     }
 }
@@ -29,25 +27,34 @@ const setBombReducer = (state={nodes:[],
     isMouseDown:false,
     ROWNUM:ROWNUM,
     COLNUM:COLNUM,
-    isAdjustingStart:false,
-    isAdjustingTarget:false,
-    start:startCoordinates,
-    target:targetCoordinates},action) => {
+    isAdjusting:false,
+    deletedProp:[],
+    hasBomb:false,},action) => {
     switch(action.type){
-        case "INITIAL_NODES":
+        case "INITIAL_BOARD":
             state.nodes=[];
             for(let i=0;i<state.ROWNUM;i++){
                 for(let j=0;j<state.COLNUM;j++){
                     let node = new Node(j,i);
                     node.key=`node-${i}-${j}`;
                     state.nodes.push(node);
-                    // console.log(state.nodes[i*state.COLNUM+j].key);
                 }
             }
             return {
                 ...state,
             }
-        case "SET_BOMB":
+        case "CLEAR_WALL_WEIGHTS":
+            for(let i=0;i<state.ROWNUM;i++){
+                for(let j=0;j<state.COLNUM;j++){
+                    state.nodes[i*state.COLNUM+j].isWall=false;
+                }
+            }
+            return {
+                ...state,
+            }
+        case "INITIAL_BOMB":
+            state.nodes[Math.floor(ROWNUM/2)*COLNUM+Math.floor(COLNUM/2)].isBomb=true;
+            // console.log(state.nodes[Math.floor(ROWNUM/2)*COLNUM+Math.floor(COLNUM/2)].isBomb);
             return {
                 ...state,
             }
@@ -61,37 +68,57 @@ const setBombReducer = (state={nodes:[],
         case "SET_START":
             let x1=action.xCoordinates;
             let y1=action.yCoordinates;
-            state.start=[x1,y1];
             state.nodes[y1*state.COLNUM+x1].isStart=true;
-            state.isAdjustingStart=false;
+            state.isAdjusting=false;
+            state.deletedProp=[];
             return{
                 ...state,
             }
         case "SET_TARGET":
             let x2=action.xCoordinates;
             let y2=action.yCoordinates;
-            state.target=[x2,y2];
             state.nodes[y2*state.COLNUM+x2].isTarget=true;
-            state.isAdjustingTarget=false;
+            state.isAdjusting=false;
+            state.deletedProp=[];
             return{
                 ...state,
             }
-        case "DEL_START":
+        case "SET_BOMB":
+            let x6=action.xCoordinates;
+            let y6=action.yCoordinates;
+            state.nodes[y6*state.COLNUM+x6].isBomb=true;
+            state.isAdjusting=false;
+            state.deletedProp=[];
+            return{
+                ...state,
+            }
+        case "DELETE_START":
             let x3=action.xCoordinates;
             let y3=action.yCoordinates;
             state.nodes[y3*state.COLNUM+x3].isStart=false;
-            state.isAdjustingStart=true;
+            state.isAdjusting=true;
+            state.deletedProp.push("SET_START");
             return{
                 ...state,
             }
-        case "DEL_TARGET":
+        case "DELETE_TARGET":
             let x4=action.xCoordinates;
             let y4=action.yCoordinates;
             state.nodes[y4*state.COLNUM+x4].isTarget=false;
-            state.isAdjustingTarget=true;
+            state.isAdjusting=true;
+            state.deletedProp.push("SET_TARGET");
             return{
                 ...state,
             }
+        case "DELETE_BOMB":
+            let x5=action.xCoordinates;
+            let y5=action.yCoordinates;
+            state.nodes[y5*state.COLNUM+x5].isBomb=false;
+            state.isAdjusting=true;
+            state.deletedProp.push("SET_BOMB");
+            return{
+                ...state,
+            }    
         case "MOUSE_DOWN":
             state.isMouseDown = true;
             return {
