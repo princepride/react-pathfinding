@@ -31,13 +31,23 @@ const MyNavBar = () => {
 
     const handleDijkstra = (event) =>{
         let visitedNodesIndex = dijkstra();
-        // for(let i = 0; i < visitedNodesIndex.length; i){
-        //     setTimeout(() =>{
-        //         store.dispatch({type:"ANIMATE_PATHFINDING",
-        //         xCoordinates:visitedNodesIndex[i].xCoordinates,
-        //         yCoordinates:visitedNodesIndex[i].yCoordinates});
-        //     })
-        // }
+        console.log("out loop");
+        for(let i = 0; i < visitedNodesIndex.length; i++){
+            setTimeout(() =>{
+                console.log(i);
+                store.dispatch({type:"ANIMATE_PATHFINDING",
+                xCoordinates:visitedNodesIndex[i].xCoordinates,
+                yCoordinates:visitedNodesIndex[i].yCoordinates});
+            },10*i);
+        }
+        let node = visitedNodesIndex[visitedNodesIndex.length-1];
+        setTimeout(() =>{
+            while(!node.isStart){
+                store.dispatch({type:"SET_PATH",xCoordinates:node.xCoordinates,yCoordinates:node.yCoordinates});
+                node = node.forwardNode;
+            }
+            store.dispatch({type:"SET_PATH",xCoordinates:node.xCoordinates,yCoordinates:node.yCoordinates});
+        },10*visitedNodesIndex.length);
     }
 
     return (

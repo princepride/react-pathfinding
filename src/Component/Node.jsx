@@ -15,6 +15,7 @@ const Node = (props) => {
     const isAdjusting = useSelector(state => state.isAdjusting);
     const isBomb = useSelector(state => state.nodes[row*state.COLNUM+col].isBomb);
     const isVisited = useSelector(state => state.nodes[row*state.COLNUM+col].isVisited);
+    const isPath = useSelector(state => state.nodes[row*state.COLNUM+col].isPath);
     // const deletedProp = useSelector(state => state.deletedProp);
     let colNum=store.getState().COLNUM;
 
@@ -24,6 +25,8 @@ const Node = (props) => {
                 {console.log("adjusting");}
             else{
                 store.dispatch({type:"SET_WALL",xCoordinates:col,yCoordinates:row});
+                // store.dispatch({type:"ANIMATE_PATHFINDING",xCoordinates:col,yCoordinates:row});
+                
             }
         }
     }
@@ -53,6 +56,9 @@ const Node = (props) => {
 
     const classType = () => {
         let className = "node";
+        if(isPath){
+            className+=" node-shortest-path";
+        }
         if(isBomb){
             store.dispatch({type:"DELETE_SIGNAL_WALL",xCoordinates:col,yCoordinates:row});
             className+=" node-bomb";

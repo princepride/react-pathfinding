@@ -15,17 +15,13 @@ const dijkstra = () => {
             }
         }
     }
-    console.log("1");
     const query = [store.getState().nodes[yStart*COLNUM + xStart]];
-    console.log("xStart"+xStart, yStart);
     while(query.length > 0){
-        if(visitedNodeInorder.length>=100){
-            break;
-        }
+        // if(visitedNodeInorder.length>=100){
+        //     break;
+        // }
         query.sort((a,b) => a.distance - b.distance);
         let node=query.shift();
-        console.log(node.xCoordinates,node.yCoordinates);
-        visitedNodes[node.yCoordinates*COLNUM + node.xCoordinates] = true;
         visitedNodeInorder.push(node);
         if(node.isTarget){
             return visitedNodeInorder;
@@ -40,6 +36,7 @@ const dijkstra = () => {
                 // visitedNodes[y*COLNUM+x] = true;
                 store.getState().nodes[y*COLNUM+x].forwardNode=node;
                 store.getState().nodes[y*COLNUM+x].distance = node.distance + 1;
+                visitedNodes[y*COLNUM+x] = true;
                 query.push(store.getState().nodes[y*COLNUM+x]);
             }
         }
@@ -53,6 +50,7 @@ const dijkstra = () => {
                 // visitedNodes[y*COLNUM+x] = true;
                 store.getState().nodes[y*COLNUM+x].forwardNode=node;
                 store.getState().nodes[y*COLNUM+x].distance = node.distance + 1;
+                visitedNodes[y*COLNUM+x] = true;
                 query.push(store.getState().nodes[y*COLNUM+x]);
             }
         }
@@ -66,6 +64,7 @@ const dijkstra = () => {
                 // visitedNodes[y*COLNUM+x] = true;
                 store.getState().nodes[y*COLNUM+x].forwardNode=node;
                 store.getState().nodes[y*COLNUM+x].distance = node.distance + 1;
+                visitedNodes[y*COLNUM+x] = true;
                 query.push(store.getState().nodes[y*COLNUM+x]);
             }
         }
@@ -79,6 +78,7 @@ const dijkstra = () => {
                 // visitedNodes[y*COLNUM+x] = true;
                 store.getState().nodes[y*COLNUM+x].forwardNode=node;
                 store.getState().nodes[y*COLNUM+x].distance = node.distance + 1;
+                visitedNodes[y*COLNUM+x] = true;
                 query.push(store.getState().nodes[y*COLNUM+x]);
             }
         }

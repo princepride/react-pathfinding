@@ -15,6 +15,7 @@ class Node{
     distance=Infinity;
     forwardNode=null;
     isVisited=false;
+    isPath=false;
     constructor(xCoordinates, yCoordinates){
         this.xCoordinates = xCoordinates;
         this.yCoordinates = yCoordinates;
@@ -27,87 +28,6 @@ class Node{
         }
     }
 }
-
-// const dijkstra = (nodes) => {
-//     console.log(ROWNUM*COLNUM);
-//     const visitedNodeInorder = [];
-//     const visitedNodes= new Array(ROWNUM*COLNUM).fill(false);
-//     const xStart = 0;
-//     const yStart = 0;
-//     for(let i = 0; i < ROWNUM.length;i++){
-//         for(let j=0; j < COLNUM; j++){
-//             if(nodes[i*COLNUM + j].isStart){
-//                 xStart = j;
-//                 yStart = i;
-//             }
-//         }
-//     }
-//     const query = [nodes[yStart*COLNUM + xStart]];
-//     while(query.length > 0){
-//         let tempNodes=query[0];
-//         let tempIndex=0;
-//         for(let i=1; i<query.length; i++){
-//             if(tempNodes.distance<query[i].distance){
-//                 tempNodes=query[i];
-//                 tempIndex=i;
-//             }
-//         }
-//         let node=query.splice(0,tempIndex);
-//         visitedNodeInorder.push(node);
-//         if(node.isTarget){
-//             return visitedNodeInorder;
-//         }
-//         if(node.xCoordinates-1>=0&&node.yCoordinates-1>=0){
-//             let x = node.xCoordinates-1;
-//             let y = node.yCoordinates-1;
-//             if(nodes[y*COLNUM+x].isWall){
-//                 continue;
-//             }
-//             if(!visitedNodes[y*COLNUM+x]){
-//                 visitedNodes[y*COLNUM+x] = true;
-//                 nodes[y*COLNUM+x].forwardNode=node;
-//                 query.push(nodes[y*COLNUM+x]);
-//             }
-//         }
-//         if(node.xCoordinates-1>=0&&node.yCoordinates+1<ROWNUM){
-//             let x=node.xCoordinates-1;
-//             let y=node.yCoordinates+1;
-//             if(nodes[y*COLNUM+x].isWall){
-//                 continue;
-//             }
-//             if(!visitedNodes[y*COLNUM+x]){
-//                 visitedNodes[y*COLNUM+x] = true;
-//                 nodes[y*COLNUM+x].forwardNode=node;
-//                 query.push(nodes[y*COLNUM+x]);
-//             }
-//         }
-//         if(node.xCoordinates+1<COLNUM&&node.yCoordinates+1<ROWNUM){
-//             let x=node.xCoordinates+1;
-//             let y=node.yCoordinates+1;
-//             if(nodes[y*COLNUM+x].isWall){
-//                 continue;
-//             }
-//             if(!visitedNodes[y*COLNUM+x]){
-//                 visitedNodes[y*COLNUM+x] = true;
-//                 nodes[y*COLNUM+x].forwardNode=node;
-//                 query.push(nodes[y*COLNUM+x]);
-//             }
-//         }
-//         if(node.xCoordinates+1<COLNUM&&node.yCoordinates-1>=0){
-//             let x=node.xCoordinates+1;
-//             let y=node.yCoordinates-1;
-//             if(nodes[y*COLNUM+x].isWall){
-//                 continue;
-//             }
-//             if(!visitedNodes[y*COLNUM+x]){
-//                 visitedNodes[y*COLNUM+x] = true;
-//                 nodes[y*COLNUM+x].forwardNode=node;
-//                 query.push(nodes[y*COLNUM+x]);
-//             }
-//         }
-//     }
-//     return visitedNodeInorder;
-// }
 
 const setBombReducer = (state={nodes:[],
     isMouseDown:false,
@@ -196,6 +116,13 @@ const setBombReducer = (state={nodes:[],
             return{
                 ...state,
             }
+        case "SET_PATH":
+            let x9=action.xCoordinates;
+            let y9=action.yCoordinates;
+            state.nodes[y9*state.COLNUM+x9].isPath=true;
+            return{
+                ...state,
+            }
         case "DELETE_START":
             let x3=action.xCoordinates;
             let y3=action.yCoordinates;
@@ -255,7 +182,7 @@ const setBombReducer = (state={nodes:[],
         case "ANIMATE_PATHFINDING":
             let x8=action.xCoordinates;
             let y8=action.yCoordinates;
-            state.nodes[y8*state.COLNUM+x8].isVisited=false;
+            state.nodes[y8*state.COLNUM+x8].isVisited=true;
             return {
                 ...state,
             }
