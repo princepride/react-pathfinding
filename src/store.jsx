@@ -118,6 +118,13 @@ const setBombReducer = (state={nodes:[],
             state.deletedProp.push("SET_BOMB");
             return{
                 ...state,
+            }
+        case "DELETE_SIGNAL_WALL":
+            let x7=action.xCoordinates;
+            let y7=action.yCoordinates;
+            state.nodes[y7*state.COLNUM+x7].isWall=false;
+            return{
+                ...state,
             }    
         case "MOUSE_DOWN":
             state.isMouseDown = true;

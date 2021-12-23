@@ -7,7 +7,7 @@ const MyNavBar = () => {
 
     const handleBomb = (event) => {
         store.dispatch({type:"INITIAL_BOMB"});
-        console.log("bomb");
+        //console.log("bomb");
         // document.getElementById("bomb").style.display = "block";
     }
 

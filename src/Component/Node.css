@@ -11,17 +11,14 @@
   }
 
   .node-bomb{
-    background-color: white;
     background-image: url(../img/bomb.svg);
   }
 
   .node-start{
-    background-color: white;
     background-image: url(../img/start.svg);
   }
 
   .node-target{
-    background-color: white;
     background-image: url(../img/target.svg);
   }
   

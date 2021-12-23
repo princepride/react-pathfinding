@@ -52,20 +52,23 @@ const Node = (props) => {
 
     const classType = () => {
         let className = "node";
-        if(isWall){
-            className+=" node-wall";
-        }
         if(isBomb){
+            store.dispatch({type:"DELETE_SIGNAL_WALL",xCoordinates:col,yCoordinates:row});
             className+=" node-bomb";
             return className;
         }
         if(isStart){
+            store.dispatch({type:"DELETE_SIGNAL_WALL",xCoordinates:col,yCoordinates:row});
             className+=" node-start";
             return className;
         }
         if(isTarget){
+            store.dispatch({type:"DELETE_SIGNAL_WALL",xCoordinates:col,yCoordinates:row});
             className+=" node-target";
             return className;
+        }
+        if(isWall){
+            className+=" node-wall";
         }
         return className;
     }
