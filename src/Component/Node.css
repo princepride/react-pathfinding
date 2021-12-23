@@ -11,14 +11,23 @@
   }
 
   .node-bomb{
+    width:23px;
+    height:23px;
+    margin:1px;
     background-image: url(../img/bomb.svg);
   }
 
   .node-start{
+    width:23px;
+    height:23px;
+    margin: 1px;
     background-image: url(../img/start.svg);
   }
 
   .node-target{
+    width:23px;
+    height:23px;
+    margin: 1px;
     background-image: url(../img/target.svg);
   }
   

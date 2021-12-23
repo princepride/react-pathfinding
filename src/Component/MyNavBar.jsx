@@ -1,6 +1,7 @@
 import React from 'react';
 import {Navbar,Container,Nav,NavDropdown} from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./MyNavBar.css";
 import store from '../store';
 import dijkstra from '../Algorithm/Dijkstra';
 
@@ -40,6 +41,7 @@ const MyNavBar = () => {
     }
 
     return (
+        <div className="navbar">
         <Navbar bg="light" expand="lg">
             <Container>
                 <Navbar.Brand href="#home">Pathfinding Visualizer</Navbar.Brand>
@@ -81,6 +83,7 @@ const MyNavBar = () => {
                 </Navbar.Collapse>
             </Container>
         </Navbar>
+        </div>
     )
 }
 
