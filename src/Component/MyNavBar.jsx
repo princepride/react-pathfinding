@@ -26,28 +26,39 @@ const MyNavBar = () => {
     }
 
     const handleClearPath = (event) =>{
-        store.dispatch({type:"CLEAR_CLEAR_PATH"});
+        store.dispatch({type:"CLEAR_PATH"});
     }
 
     const handleDijkstra = (event) =>{
+
         let visitedNodesIndex = dijkstra();
-        console.log("out loop");
+        store.dispatch({type:"SET_ALGORITHM",algorithm:"dijkstra"});
+        console.log(store.getState().isAlgorithming[0]);
         for(let i = 0; i < visitedNodesIndex.length; i++){
             setTimeout(() =>{
-                console.log(i);
                 store.dispatch({type:"ANIMATE_PATHFINDING",
                 xCoordinates:visitedNodesIndex[i].xCoordinates,
                 yCoordinates:visitedNodesIndex[i].yCoordinates});
             },10*i);
         }
         let node = visitedNodesIndex[visitedNodesIndex.length-1];
+        let nodePath=[]
         setTimeout(() =>{
             while(!node.isStart){
-                store.dispatch({type:"SET_PATH",xCoordinates:node.xCoordinates,yCoordinates:node.yCoordinates});
+                nodePath.push(node);
                 node = node.forwardNode;
             }
-            store.dispatch({type:"SET_PATH",xCoordinates:node.xCoordinates,yCoordinates:node.yCoordinates});
+            nodePath.push(node);
+            nodePath.reverse();
+            for(let i=0;i<nodePath.length;i++){
+                setTimeout(() =>{
+                    store.dispatch({type:"SET_PATH",
+                    xCoordinates:nodePath[i].xCoordinates,
+                    yCoordinates:nodePath[i].yCoordinates});
+                },10*i);
+            }
         },10*visitedNodesIndex.length);
+
     }
 
     return (
@@ -79,7 +90,7 @@ const MyNavBar = () => {
                             <NavDropdown.Item href="#action/2.6">Simple Stair Pattern</NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link id="bomb" href="#add-bomb" onClick={handleBomb}>Add Bomb</Nav.Link>
-                        <Nav.Link href="#switch">Visualize!</Nav.Link>
+                        {/* <Nav.Link href="#switch">Visualize!</Nav.Link> */}
                         <Nav.Link href="#clear-board" onClick={handleClearBoard}>Clear Board</Nav.Link>
                         <Nav.Link href="#clear-wall-weights" onClick={handleClearWallWeights}>CLear Wall&Weights</Nav.Link>
                         <Nav.Link href="#clear-path" onClick={handleClearPath}>Clear Path</Nav.Link>

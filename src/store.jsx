@@ -29,12 +29,13 @@ class Node{
     }
 }
 
-const setBombReducer = (state={nodes:[],
+const Reducer = (state={nodes:[],
     isMouseDown:false,
     ROWNUM:ROWNUM,
     COLNUM:COLNUM,
     isAdjusting:false,
     deletedProp:[],
+    isAlgorithming:[],
     hasBomb:false,},action) => {
     switch(action.type){
         case "INITIAL_BOARD":
@@ -67,10 +68,13 @@ const setBombReducer = (state={nodes:[],
             return {
                 ...state,
             }
-        case "CLEAR_CLEAR_PATH":
+        case "CLEAR_PATH":
             for(let i=0;i<state.ROWNUM;i++){
                 for(let j=0;j<state.COLNUM;j++){
                     state.nodes[i*state.COLNUM+j].isVisited=false;
+                    state.nodes[i*state.COLNUM+j].isPath=false;
+                    state.nodes[i*state.COLNUM+j].forwardNode=null;
+                    state.isAlgorithming=[];
                 }
             }
             return {
@@ -120,6 +124,11 @@ const setBombReducer = (state={nodes:[],
             let x9=action.xCoordinates;
             let y9=action.yCoordinates;
             state.nodes[y9*state.COLNUM+x9].isPath=true;
+            return{
+                ...state,
+            }
+        case "SET_ALGORITHM":
+            state.isAlgorithming.push(action.algorithm);
             return{
                 ...state,
             }
@@ -191,6 +200,6 @@ const setBombReducer = (state={nodes:[],
     }
 }
 
-const store = createStore(setBombReducer);
+const store = createStore(Reducer);
 
 export default store;
