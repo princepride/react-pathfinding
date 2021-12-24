@@ -6,8 +6,19 @@
     display: inline-block;
   }
 
-  .node-wall {
+  /* .node-wall {
     background-color: rgb(12, 53, 71);
+  } */
+
+  .node-wall {
+    animation-name: wallAnimation;
+    animation-duration: 0.7s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
   }
 
   .node-bomb{
@@ -15,6 +26,7 @@
     height:23px;
     margin:1px;
     background-image: url(../img/bomb.svg);
+    background-size:100% 100%;
   }
 
   .node-start{
@@ -93,5 +105,17 @@
     100% {
       transform: scale(1);
       background-color: rgb(255, 254, 106);
+    }
+  }
+
+  @keyframes wallAnimation {
+    from {
+      transform: scale(0.6);
+      background-color: rgb(12, 53, 71);
+    }
+  
+    to {
+      transform: scale(1);
+      background-color: rgb(12, 53, 71);
     }
   }

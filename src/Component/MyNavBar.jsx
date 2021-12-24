@@ -6,6 +6,7 @@ import store from '../store';
 import dijkstra from '../Algorithm/Findingpath/Dijkstra';
 import getStairWall from '../Algorithm/Maze/SimpleStair';
 import getRandomMaze from '../Algorithm/Maze/RandomMaze';
+import getRecursiveMaze from '../Algorithm/Maze/RecursiveMaze';
 
 const MyNavBar = () => {
 
@@ -31,7 +32,7 @@ const MyNavBar = () => {
         store.dispatch({type:"CLEAR_PATH"});
     }
 
-    const handleSimpleStair = (event) =>{
+    const handleSimpleStairMaze = (event) =>{
         const res=getStairWall();
         for(let i=0; i<res.length; i++){
             setTimeout(() =>{
@@ -49,9 +50,12 @@ const MyNavBar = () => {
         }
     }
 
+    const handleDepthFirstMaze = (event) =>{
+        
+    }
+
 
     const handleDijkstra = (event) =>{
-
         let visitedNodesIndex = dijkstra();
         store.dispatch({type:"SET_ALGORITHM",algorithm:"dijkstra"});
         console.log(store.getState().isAlgorithming[0]);
@@ -79,7 +83,15 @@ const MyNavBar = () => {
                 },10*i);
             }
         },10*visitedNodesIndex.length);
+    }
 
+    const handleRecursiveMaze =()=>{
+        const res=getRecursiveMaze();
+        for(let i=0; i<res.length; i++){
+            setTimeout(() =>{
+                store.dispatch({type:"SET_WALL",xCoordinates:res[i][0],yCoordinates:res[i][1]});
+            },5*i);
+        }
     }
 
     return (
@@ -102,13 +114,14 @@ const MyNavBar = () => {
                             <NavDropdown.Item href="#action/1.8">Depth-first Search</NavDropdown.Item>
                         </NavDropdown>
                         <NavDropdown title="Mazes&Patterns" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/2.1">Recursive Division</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/2.2">Recursive Division (vertical skew)</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/2.3">Recursive Division (horizontal skew)</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/2.1" onClick={handleRecursiveMaze}>Recursive Division Maze</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/2.2" onClick={handleDepthFirstMaze}>Depth First Maze</NavDropdown.Item>
+                            {/* <NavDropdown.Item href="#action/2.2">Recursive Division (vertical skew)</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/2.3">Recursive Division (horizontal skew)</NavDropdown.Item> */}
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="#action/2.4" onClick={handleRandomMaze}>Basic Random Maze</NavDropdown.Item>
                             <NavDropdown.Item href="#action/2.5">Basic Weight Maze</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/2.6" onClick={handleSimpleStair}>Simple Stair Pattern</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/2.6" onClick={handleSimpleStairMaze}>Simple Stair Pattern</NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link id="bomb" href="#add-bomb" onClick={handleBomb}>Add Bomb</Nav.Link>
                         {/* <Nav.Link href="#switch">Visualize!</Nav.Link> */}
