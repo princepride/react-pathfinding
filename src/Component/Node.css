@@ -11,8 +11,9 @@
   } */
 
   .node-wall {
+    outline: none;
     animation-name: wallAnimation;
-    animation-duration: 0.7s;
+    animation-duration: 0.3s;
     animation-timing-function: ease-out;
     animation-delay: 0;
     animation-direction: alternate;
@@ -109,13 +110,18 @@
   }
 
   @keyframes wallAnimation {
-    from {
-      transform: scale(0.6);
+    0% {
+      transform: scale(.3);
       background-color: rgb(12, 53, 71);
     }
   
-    to {
-      transform: scale(1);
+    50% {
+      transform: scale(1.2);
+      background-color: rgb(12, 53, 71);
+    }
+  
+    100% {
+      transform: scale(1.0);
       background-color: rgb(12, 53, 71);
     }
   }
