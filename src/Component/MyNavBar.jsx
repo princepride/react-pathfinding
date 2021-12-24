@@ -3,7 +3,9 @@ import {Navbar,Container,Nav,NavDropdown} from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./MyNavBar.css";
 import store from '../store';
-import dijkstra from '../Algorithm/Dijkstra';
+import dijkstra from '../Algorithm/Findingpath/Dijkstra';
+import getStairWall from '../Algorithm/Maze/SimpleStair';
+import getRandomMaze from '../Algorithm/Maze/RandomMaze';
 
 const MyNavBar = () => {
 
@@ -28,6 +30,25 @@ const MyNavBar = () => {
     const handleClearPath = (event) =>{
         store.dispatch({type:"CLEAR_PATH"});
     }
+
+    const handleSimpleStair = (event) =>{
+        const res=getStairWall();
+        for(let i=0; i<res.length; i++){
+            setTimeout(() =>{
+                store.dispatch({type:"SET_WALL",xCoordinates:res[i][0],yCoordinates:res[i][1]});
+            },5*i);
+        }
+    }
+
+    const handleRandomMaze = (event) =>{
+        const res=getRandomMaze();
+        for(let i=0; i<res.length; i++){
+            setTimeout(() =>{
+                store.dispatch({type:"SET_WALL",xCoordinates:res[i][0],yCoordinates:res[i][1]});
+            },5*i);
+        }
+    }
+
 
     const handleDijkstra = (event) =>{
 
@@ -85,9 +106,9 @@ const MyNavBar = () => {
                             <NavDropdown.Item href="#action/2.2">Recursive Division (vertical skew)</NavDropdown.Item>
                             <NavDropdown.Item href="#action/2.3">Recursive Division (horizontal skew)</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/2.4">Basic Random Maze</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/2.4" onClick={handleRandomMaze}>Basic Random Maze</NavDropdown.Item>
                             <NavDropdown.Item href="#action/2.5">Basic Weight Maze</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/2.6">Simple Stair Pattern</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/2.6" onClick={handleSimpleStair}>Simple Stair Pattern</NavDropdown.Item>
                         </NavDropdown>
                         <Nav.Link id="bomb" href="#add-bomb" onClick={handleBomb}>Add Bomb</Nav.Link>
                         {/* <Nav.Link href="#switch">Visualize!</Nav.Link> */}

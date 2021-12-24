@@ -89,7 +89,9 @@ const Reducer = (state={nodes:[],
         case "SET_WALL":
             let x=action.xCoordinates;
             let y=action.yCoordinates;
-            state.nodes[y*state.COLNUM+x].isWall=true;
+            if(!state.nodes[y*state.COLNUM+x].isStart && !state.nodes[y*state.COLNUM+x].isTarget){
+                state.nodes[y*state.COLNUM+x].isWall=true;
+            }
             return{
                 ...state,
             }

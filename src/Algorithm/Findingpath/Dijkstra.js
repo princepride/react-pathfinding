@@ -1,4 +1,4 @@
-import store from "../store";
+import store from "../../store";
 const dijkstra = () => {
     let ROWNUM = store.getState().ROWNUM;//y
     let COLNUM = store.getState().COLNUM;//x
