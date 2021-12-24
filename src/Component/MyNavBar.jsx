@@ -84,7 +84,7 @@ const MyNavBar = () => {
 
     return (
         <div className="navbar">
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="light" expand="lg" fixed="top">
             <Container>
                 <Navbar.Brand href="#home">Pathfinding Visualizer</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
