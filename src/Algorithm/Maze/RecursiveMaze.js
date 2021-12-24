@@ -4,7 +4,19 @@ const getRecursiveMaze =()=>{
     const COLNUM=store.getState().COLNUM;
     const ROWNUM=store.getState().ROWNUM;
     let res=[];
-    recursive(0,COLNUM-1,0,ROWNUM-1,res);
+    for(let i=0;i<COLNUM;i++){
+        res.push([i,0]);
+    }
+    for(let i=0;i<ROWNUM;i++){
+        res.push([0,i]);
+    }
+    for(let i=0;i<ROWNUM;i++){
+        res.push([COLNUM-1,i]);
+    }
+    for(let i=0;i<COLNUM;i++){
+        res.push([i,ROWNUM-1]);
+    }
+    recursive(1,COLNUM-2,1,ROWNUM-2,res);
     return res;
 }
 

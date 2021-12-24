@@ -6,7 +6,6 @@ const getStairWall = (SLOPE=1) => {
     const COLNUM=store.getState().COLNUM;
     const ROWNUM=store.getState().ROWNUM;
     let beginX=1;
-    let ySignal=0;
     let res=[];
     for(let i=beginX;i<COLNUM;i++) {
         if(isEven(Math.floor(i*SLOPE/(ROWNUM-2))))

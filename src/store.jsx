@@ -1,8 +1,8 @@
 import {createStore} from "redux";
 // import dijkstra from "./Algorithm/Dijkstra";
 
-const ROWNUM = 30;
-const COLNUM = 70;
+const ROWNUM = 29;
+const COLNUM = 71;
 let startCoordinates = [Math.floor(COLNUM/4),Math.floor(ROWNUM/2)]
 let targetCoordinates = [Math.floor(COLNUM*3/4),Math.floor(ROWNUM/2)]
 
@@ -178,17 +178,6 @@ const Reducer = (state={nodes:[],
             return {
                 ...state,
             }
-        // case "ANIMATE_DIJKSTRA":
-        //     const visitedNodes = dijkstra(state.nodes);
-        //     for(let i = 0; i<visitedNodes.length; i++){
-        //         setTimeout(() => {
-        //             const node = visitedNodes[i];
-        //             node.className +='node node-visited';
-        //         },10*i);
-        //     }
-        //     return {
-        //         ...state,
-        //     }
 
         case "ANIMATE_PATHFINDING":
             let x8=action.xCoordinates;

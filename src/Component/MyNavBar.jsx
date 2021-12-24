@@ -7,6 +7,7 @@ import dijkstra from '../Algorithm/Findingpath/Dijkstra';
 import getStairWall from '../Algorithm/Maze/SimpleStair';
 import getRandomMaze from '../Algorithm/Maze/RandomMaze';
 import getRecursiveMaze from '../Algorithm/Maze/RecursiveMaze';
+import {setWallOfDepthFirstMaze,deletetWallOfDepthFirstMaze} from '../Algorithm/Maze/DepthFirstMaze';
 
 const MyNavBar = () => {
 
@@ -51,7 +52,12 @@ const MyNavBar = () => {
     }
 
     const handleDepthFirstMaze = (event) =>{
-        
+        const setWallNodes=setWallOfDepthFirstMaze();
+        for(let i=0; i<setWallNodes.length; i++){
+            setTimeout(() =>{
+                store.dispatch({type:"SET_WALL",xCoordinates:setWallNodes[i][0],yCoordinates:setWallNodes[i][1]});
+            },5*i);
+        }
     }
 
 
