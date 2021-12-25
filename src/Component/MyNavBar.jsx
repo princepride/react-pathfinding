@@ -54,8 +54,12 @@ const MyNavBar = () => {
     const handleDepthFirstMaze = (event) =>{
         const setWallNodes=setWallOfDepthFirstMaze();
         for(let i=0; i<setWallNodes.length; i++){
+            store.dispatch({type:"SET_WALL",xCoordinates:setWallNodes[i][0],yCoordinates:setWallNodes[i][1]});
+        }
+        const deleteWallNodes=deletetWallOfDepthFirstMaze();
+        for(let i=0; i<deleteWallNodes.length;i++){
             setTimeout(() =>{
-                store.dispatch({type:"SET_WALL",xCoordinates:setWallNodes[i][0],yCoordinates:setWallNodes[i][1]});
+                store.dispatch({type:"DELETE_SIGNAL_WALL",xCoordinates:deleteWallNodes[i][0],yCoordinates:deleteWallNodes[i][1]});
             },5*i);
         }
     }
