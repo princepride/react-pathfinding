@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navbar,Container,Nav,NavDropdown} from 'react-bootstrap';
+import {Navbar,Container,Nav,NavDropdown,Form} from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./MyNavBar.css";
 import store from '../store';
@@ -139,11 +139,11 @@ const MyNavBar = () => {
                         <Nav.Link href="#clear-wall-weights" onClick={handleClearWallWeights}>CLear Wall&Weights</Nav.Link>
                         <Nav.Link href="#clear-path" onClick={handleClearPath}>Clear Path</Nav.Link>
                         <Nav.Link href="#clear-bomb" onClick={handleClearBomb}>Clear Bomb</Nav.Link>
-                        <NavDropdown title="Speed" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/8.1">Fast</NavDropdown.Item>
+                        <Navbar.Text id="basic-navbar-brand">Speed</Navbar.Text>
+                            <Form.Range />
+                            {/* <NavDropdown.Item href="#action/8.1">Fast</NavDropdown.Item>
                             <NavDropdown.Item href="#action/8.2">Normal</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/8.3">Slow</NavDropdown.Item>
-                        </NavDropdown>
+                            <NavDropdown.Item href="#action/8.3">Slow</NavDropdown.Item> */}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
