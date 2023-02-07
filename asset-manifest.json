@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/react-pathfinding/static/css/main.61fadc9b.css",
+    "main.js": "/react-pathfinding/static/js/main.cedc2243.js",
+    "static/media/weight.svg": "/react-pathfinding/static/media/weight.2e4bdffd11cd11e90c27.svg",
+    "static/media/bomb.svg": "/react-pathfinding/static/media/bomb.08073286dc97e9e9885a.svg",
+    "static/media/start.svg": "/react-pathfinding/static/media/start.c7b52e1e99ce162af0df.svg",
+    "static/media/target.svg": "/react-pathfinding/static/media/target.a538bedab8a991b7681c.svg",
+    "index.html": "/react-pathfinding/index.html",
+    "main.61fadc9b.css.map": "/react-pathfinding/static/css/main.61fadc9b.css.map",
+    "main.cedc2243.js.map": "/react-pathfinding/static/js/main.cedc2243.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.61fadc9b.css",
+    "static/js/main.cedc2243.js"
+  ]
+}
