@@ -1,0 +1,82 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+.main-text{
+  margin-top:60px;
+  margin-bottom:10px;
+}
+
+.text{
+    display: inline-flex;
+    margin-left: 40px;
+}
+
+#start{
+  width: 23px;
+  height: 23px;
+  margin-right: 3px;
+  background-image: url(../img/start.svg);
+  display: inline-block;
+}
+
+#target{
+  width: 23px;
+  height: 23px;
+  margin-right: 3px;
+  background-image: url(../img/target.svg);
+  display: inline-block;
+}
+
+#bombLegend{
+  width: 23px;
+  height: 23px;
+  margin-right: 3px;
+  background-image: url(../img/bomb.svg);
+  display: inline-block;
+}
+
+#weightLegend{
+  width: 23px;
+  height: 23px;
+  margin-right: 3px;
+  background-image: url(../img/weight.svg);
+  display: inline-block;
+}
+
+#unvisited{
+  width: 23px;
+  height: 23px;
+  margin-right: 3px;
+  outline: 1px solid rgb(175, 216, 248);
+  display: inline-block;
+}
+
+#visited{
+  width: 23px;
+  height: 23px;
+  margin-right: 3px;
+  outline: 1px solid rgb(175, 216, 248);
+  background-color:rgba(0, 217, 159, 0.75);
+  display: inline-block;
+}
+
+#shortest-path{
+  width: 23px;
+  height: 23px;
+  margin-right: 3px;
+  outline: 1px solid rgb(175, 216, 248);
+  background-color:yellow;
+  display: inline-block;
+}
+
+#wall{
+  width: 23px;
+  height: 23px;
+  margin-right: 3px;
+  outline: 1px solid rgb(175, 216, 248);
+  background-color:rgb(12, 53, 71);
+  display: inline-block;
+}
